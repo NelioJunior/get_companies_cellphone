@@ -1,0 +1,4 @@
+beautifulsoup4==4.12.2  # Para análise do HTML
+requests==2.31.0        # Para requisições HTTP
+googlesearch-python==1.1.0  # Para realizar buscas no Google
+pandas==1.5.3           # Para manipulação e exportação de dados em CSV
