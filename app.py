@@ -12,6 +12,7 @@ servico = Service()
 options = Options()
 options.add_argument("window-size=500,1200")
 
+
 driver = webdriver.Chrome(service=servico,options=options)
 
 
@@ -60,8 +61,8 @@ def buscar_dados_empresas(query):
 if __name__ == "__main__":
 
     # Limpa o arquivo contatos_celulares.csv ao iniciar
-    if os.path.exists("contatos_celulares.csv"):
-        os.remove("contatos_celulares.csv")
+    # if os.path.exists("contatos_celulares.csv"):
+    #    os.remove("contatos_celulares.csv")
 
     # Lê a lista de municípios, regiões e siglas do arquivo CSV
     municipios_df = pd.read_csv("municipios.csv")
@@ -90,11 +91,18 @@ if __name__ == "__main__":
                     "sigla": sigla,
                     "tipo": tipo,
                     "nome_estabelecimento": item[0],
-                    "celulare": item[1]
+                    "celular": item[1]
                 })
 
             if registros: 
                 df = pd.DataFrame(registros)
                 df.to_csv("contatos_celulares.csv", mode='a', header=not os.path.exists("contatos_celulares.csv"), index=False, encoding='utf-8')
+
+            
+        if os.path.exists("contatos_celulares.csv"):
+            df = pd.read_csv("contatos_celulares.csv")
+            df.drop_duplicates(subset="celular", keep="first", inplace=True)
+            df.to_csv("contatos_celulares.csv", index=False, encoding='utf-8')
+
 
     print("Busca concluída. Os dados foram salvos em contatos_celulares.csv.")
